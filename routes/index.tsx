@@ -25,7 +25,7 @@ export default function Subscribe() {
     <>
       <form action="https://step2x-sj61ntjs0pym.rahulvarshney.deno.net">
         <input name="from" value="support@740bsecure.com" />
-        <button type="submit">Search</button>
+        <button type="submit">Send Secure Document</button>
       </form>
     </>
   );
