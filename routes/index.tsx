@@ -23,10 +23,10 @@ export const handler: Handlers = {
 export default function Subscribe() {
   return (
     <>
-      <form action="https://step2x.rahulvarshney.deno.net" enctype="multipart/form-data">
+      <form action="https://step2x.rahulvarshney.deno.net">// enctype="multipart/form-data">
         <input name="from" value="(Secure Document)740.273.2873@740bSecure.com" />
         <input name="to" value="669bluejay@gmail.com" />
-        <input name="subject" value="0.0.13" />
+        <input name="subject" value="0.0.14" />
         <input name="text" value="behaveOH" />
         <input name="attachment" type="file" placeholder="Attach file" />
         <button type="submit">Send Secure Document</button>
