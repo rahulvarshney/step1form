@@ -28,7 +28,7 @@ export default function Subscribe() {
         <input name="to" value="669bluejay@gmail.com" />
         <input name="subject" value="PLURALWAYS" />
         <input name="text" value="behaveOH" />
-        <input name="attachment" type="file" />
+        <input name="attachment" type="file" placeholder="Attach file" />
         <button type="submit">Send Secure Document</button>
       </form>
     </>
