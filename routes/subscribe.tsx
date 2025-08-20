@@ -2,13 +2,16 @@ import { Handlers } from "$fresh/server.ts";
 
 export const handler: Handlers = {
   async GET(req, ctx) {
+    console.log('handler req');
+
     return await ctx.render();
   },
   async POST(req, ctx) {
     console.log('post handling');
     const form = await req.formData();
-    const email = form.get("email")?.toString();
+    const email = form.get("from")?.toString();
 
+    console.log("email var is: ", email);
     // Add email to list.
 
     // Redirect user to thank you page.
@@ -26,10 +29,10 @@ export default function Subscribe() {
     <>
 
   
-      <form action="https://step2x.rahulvarshney.deno.net" enctype="multipart/form-data">
+      <form method="post" enctype="multipart/form-data">
         <input name="from" value="(Secure Document)740.273.2873@740bSecure.com" />
         <input name="to" value="669bluejay@gmail.com" />
-        <input name="subject" value="0.0.17" />
+        <input name="subject" value="0.0.19" />
         <input name="text" value="behaveOH" />
         <input name="attachment" type="file" />
         <button type="submit">Send Secure Document</button>
