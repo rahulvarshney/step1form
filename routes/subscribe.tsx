@@ -1,30 +1,66 @@
-import { Handlers } from "$fresh/server.ts";
+import { Handlers, type PageProps } from "$fresh/server.ts";
 
-export const handler: Handlers = {
+
+interface Props {
+  message: string | null;
+}
+
+export const handler: Handlers<Props> = {
   async GET(req, ctx) {
-    console.log('handler req');
-
-    return await ctx.render();
+    return await ctx.render({
+      message: null,
+    });
   },
   async POST(req, ctx) {
     console.log('post handling');
     const form = await req.formData();
-    const email = form.get("from")?.toString();
+    const file = form.get("attachment") as File;
 
-    console.log("email var is: ", email);
-    // Add email to list.
+    if (!file) {
+      return ctx.render({
+        message: `Please try again`,
+      });
+    }
 
+    const name = file.name;
+    const contents = await file.text();
+
+    console.log(contents);
+
+    
+    
+    const from = form.get("from")?.toString();
+    const to = form.get('to')?.toString();
+    const subject = form.get('subject')?.toString();
+    const text = form.get('text')?.toString();
+
+    console.log('form var is: ' + form);
+    for (const value of form.values()) {
+      console.log(value);
+    }
+    const request = new Request("https://api.forwardemail.net/v1/emails", {
+        method: "POST",
+        headers: {
+          "Authorization": "Basic OWRhOTZjZmI5OGU1ZWIxOWMwYjA0ODUxOg=="
+        },
+        body: form
+    });
+ 
+ 
+ 
+    return fetch(request);
     // Redirect user to thank you page.
-    const headers = new Headers();
-    headers.set("location", "/thanks-for-subscribing");
+    /*const headers = new Headers();
+    headers.set("location", "/subscribe");
     return new Response(null, {
       status: 303, // See Other
       headers,
-    });
+    });*/
   },
 };
 
-export default function Subscribe() {
+export default function Upload(props: PageProps<Props>) {
+  const { message } = props.data;
   return (
     <>
 
@@ -32,8 +68,8 @@ export default function Subscribe() {
       <form method="post" enctype="multipart/form-data">
         <input name="from" value="(Secure Document)740.273.2873@740bSecure.com" />
         <input name="to" value="669bluejay@gmail.com" />
-        <input name="subject" value="0.0.19" />
-        <input name="text" value="behaveOH" />
+        <input name="subject" value="0.1.3" />
+        <input name="text" value="Proper body." />
         <input name="attachment" type="file" />
         <button type="submit">Send Secure Document</button>
       </form>
